@@ -1,5 +1,7 @@
 # Board roster API
 
+API currently deployed at: https://board-roster-api.herokuapp.com/ 
+
 ## Requirements
 
 - [node & npm](https://nodejs.org/en/)
