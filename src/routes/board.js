@@ -20,10 +20,11 @@ router.get('/', function (req, res, next) {
 module.exports = router;
 
 /**
- * Prints the names and majors of students in a sample spreadsheet:
+ * Sends the board positions, names and emails of the board members as json:
  * @see https://docs.google.com/spreadsheets/d/1Lkq_3bH0Xxmr_Z2z_9W9htGdTRr39K9KRQTwX3fXoeI/edit
  * @param {google.auth.OAuth2} auth The authenticated Google OAuth client.
  */
+
 function getBoardMembers(auth, response) {
   const sheets = google.sheets({ version: 'v4', auth });
 
@@ -44,10 +45,9 @@ function getBoardMembers(auth, response) {
     range: `${prevYear}-${year}!A2:C`,
   }, (err, res) => {
     if (err) {
-      res.status(500).json([]);
+      response.status(500).json([]);
       return;
     }
-
     const rows = res.data.values;
     if (rows.length) {
       console.log(`Board roster found in spreadsheet`);
@@ -55,7 +55,7 @@ function getBoardMembers(auth, response) {
       response.send(rows);
     } else {
       console.log('No data found in board roster');
-      res.status(200).json([]);
+      response.status(200).json([]);
       return;
     }
   });
