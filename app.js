@@ -3,7 +3,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var board = require('./routes/board');
+var board = require('./src/routes/board');
 
 var app = express();
 
