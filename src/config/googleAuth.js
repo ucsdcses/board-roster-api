@@ -21,12 +21,12 @@ function authorize(credentials, callback, res) {
   const oAuth2Client = new google.auth.OAuth2(
     client_id, client_secret, redirect_uris[0]);
 
-  // Check if we have previously stored a token.
-  fs.readFile(TOKEN_PATH, (err, token) => {
-    if (err) return getNewToken(oAuth2Client, callback, res);
-    oAuth2Client.setCredentials(JSON.parse(token));
+  if (process.env.GOOGLE_APPLICATION_TOKEN) {
+    oAuth2Client.setCredentials(JSON.parse(process.env.GOOGLE_APPLICATION_TOKEN));
     callback(oAuth2Client, res);
-  });
+  } else {
+    return getNewToken(oAuth2Client, callback, res);
+  }
 }
 
 /**

@@ -10,11 +10,10 @@ import { getNewToken, authorize } from '../config/googleAuth';
 */
 router.get('/', function (req, res, next) {
   // Load client secrets from a local file.
-  fs.readFile('credentials.json', (err, content) => {
-    if (err) return console.log('Error loading client secret file:', err);
-    // Authorize a client with credentials, then call the Google Sheets API.
-    authorize(JSON.parse(content), getBoardMembers, res);
-  });
+  //console.log(process.env.GOOGLE_APPLICATION_CREDENTIALS);
+  if (process.env.GOOGLE_APPLICATION_CREDENTIALS) {
+    authorize(JSON.parse(process.env.GOOGLE_APPLICATION_CREDENTIALS), getBoardMembers, res);
+  }
 });
 
 module.exports = router;
